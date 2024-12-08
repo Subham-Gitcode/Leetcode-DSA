@@ -1,0 +1,141 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14. Longest Common Prefix
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Solution-(0ms)
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        // Edge case: if the array is empty, return an empty string
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+
+        // Assume the first string is the common prefix
+        String prefix = strs[0];
+
+        // Compare the prefix with each string in the array
+        for (int i = 1; i < strs.length; i++) {
+            // Reduce the prefix length until it matches the current string
+            while (strs[i].indexOf(prefix) != 0) {
+                prefix = prefix.substring(0, prefix.length() - 1);
+                // If the prefix becomes empty, there is no common prefix
+                if (prefix.isEmpty()) {
+                    return "";
+                }
+            }
+        }
+        return prefix;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Solution - (1ms)
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+     
+         if (strs == null || strs.length == 0) return "";
+         String firstStr = strs[0];
+        for (int i = 0; i < firstStr.length(); i++) {
+            char cur = firstStr.charAt(i);
+            for (int j = 1; j < strs.length; j++){
+                // for all other strings
+                if (i == strs[j].length() || cur != strs[j].charAt(i)){
+                    return firstStr.substring(0, i);
+                }
+            }
+        }
+        return strs[0];
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Solution-(2ms)
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return ""; // Handle empty input
+        }
+
+        String temp = strs[0]; // Assume the first string is the common prefix
+
+        for (int i = 0; i < temp.length(); i++) {
+            for (int j = 1; j < strs.length; j++) {
+                // Check for mismatches or shorter strings
+                if (i >= strs[j].length() || strs[j].charAt(i) != temp.charAt(i)) {
+                    return temp.substring(0, i); // Return the common prefix up to this point
+                }
+            }
+        }
+        return temp;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Solution - (3ms)
+
+class Solution {
+        public static String longestCommonPrefix(String[] strs) {
+        //soft string
+        Arrays.sort(strs, Comparator.comparingInt(String::length));
+        String prefix = "";
+        if (!strs[0].isEmpty()) {
+            for (int k = 1; k <= strs[0].length(); k++) {
+                int prefixCounter = 0;
+                String prefixSub = strs[0].substring(0, k);
+                for (String str : strs) {
+                    if (!str.isEmpty()) {
+                        if (str.startsWith(prefixSub)) {
+                            prefixCounter += 1;
+                        }
+                    }
+                }
+                if (prefixCounter == strs.length) {
+                    prefix = prefixSub;
+                }
+            }
+        }
+        return prefix;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Solution - (8ms)
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        String commonPrefix = "";
+        for(int i = 0; i < strs[0].length(); i++){
+           for(int j = 1; j < strs.length; j++){
+            if (i >= strs[j].length() || strs[j].charAt(i) != strs[0].charAt(i)){
+                return commonPrefix;
+            }
+           }
+           commonPrefix += strs[0].charAt(i);
+        }
+        return commonPrefix;
+    }
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
